@@ -32,9 +32,20 @@ export async function IsAUser(name: string) {
     if(usr != null && usr.id > 0) {
         return true;
     } else{
-        throw Error("Usuario nao encontrado!")
         return false;
     }
+}
+
+export async function buscarUsuarioPeloNome(name: string) {
+    console.log(`Searching user from db with name [${name}]...`)
+    const usr = await AppDataSource.manager.findOneBy(User, {
+        name: name
+    });
+    if(usr != null && usr.id > 0) {
+        return usr;
+    }
+
+    throw Error("Usuario nao encontrado!");
 }
 
 export async function listarTodosUsuarios() {
